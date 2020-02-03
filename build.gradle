@@ -1,0 +1,57 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version "0.9.10"
+    id 'groovy'
+    id 'maven-publish'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testImplementation 'org.spockframework:spock-core:1.3-groovy-2.5'
+}
+
+group = "one.chest"
+version = "0.0.1"
+
+gradlePlugin {
+    plugins {
+        'maven-publish-plugin' {
+            id = 'one.chest.maven-publish-plugin'
+            implementationClass = 'one.chest.MavenPublishPlugin'
+        }
+    }
+}
+
+pluginBundle {
+    website = 'https://github.com/DNAlchemist/maven-publish-plugin'
+    vcsUrl = 'https://github.com/DNAlchemist/maven-publish-plugin'
+    tags = ['publish', 'upload', 'maven', 'repository']
+
+    plugins {
+        profilesPlugin {
+            id = 'one.chest.maven-publish-plugin'
+            displayName = 'Simple plugin to upload java components to Maven repository'
+            description = 'Simple plugin to upload java components to Maven repository'
+        }
+    }
+}
+
+sourceSets {
+    functionalTest {
+    }
+}
+
+gradlePlugin.testSourceSets(sourceSets.functionalTest)
+configurations.functionalTestImplementation.extendsFrom(configurations.testImplementation)
+
+task functionalTest(type: Test) {
+    testClassesDirs = sourceSets.functionalTest.output.classesDirs
+    classpath = sourceSets.functionalTest.runtimeClasspath
+}
+
+check {
+    dependsOn(tasks.functionalTest)
+}
