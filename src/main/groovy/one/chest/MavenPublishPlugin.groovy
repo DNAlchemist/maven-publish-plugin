@@ -49,7 +49,7 @@ class MavenPublishPlugin implements Plugin<Project> {
                                 password passwordStr
                             }
                         }
-                        url = project.extensions.publish.repository.url ?: project.property("publish.repository.url")
+                        url = extractUrl(project)
                         mavenContent {
                             releasesOnly()
                         }
@@ -87,5 +87,10 @@ class MavenPublishPlugin implements Plugin<Project> {
     @CompileDynamic
     static String extractPassword(Project project) {
         project.extensions.publish.repository.password ?: fetchProperty(project, "publish.repository.password")
+    }
+
+    @CompileDynamic
+    static String extractUrl(Project project) {
+        project.extensions.publish.repository.url ?: fetchProperty(project, "publish.repository.url")
     }
 }
