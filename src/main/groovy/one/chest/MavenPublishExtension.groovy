@@ -23,8 +23,9 @@ class MavenPublishExtension {
     MavenPublishRepository repository = new MavenPublishRepository()
     private String groupId, artifactId, version
 
-    void repository(@DelegatesTo(MavenPublishRepository) Closure<?> closure) {
+    void repository(@DelegatesTo(value = MavenPublishRepository, strategy = Closure.DELEGATE_FIRST) Closure<?> closure) {
         closure.delegate = repository
+        closure.resolveStrategy = Closure.DELEGATE_FIRST
         closure()
     }
 
