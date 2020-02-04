@@ -43,6 +43,8 @@ Using legacy plugin application:
 
 ### via build.gradle extension
 
+*Any parameter declared in extension has the highest priority*
+
     publish {
         repository {
             url 'https://nexus.example.com/repository/maven-releases'
@@ -54,5 +56,4 @@ Using legacy plugin application:
         version '0.1'
     }
     
-**Any parameter declared in extension has the highest priority**
     
