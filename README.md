@@ -9,7 +9,7 @@ You can specify url as a file or a Maven repository
 Using the plugins DSL:
 
     plugins {
-        id "one.chest.maven-publish-plugin" version "0.0.1"
+        id 'one.chest.maven-publish-plugin' version '0.0.1'
     }
 
 Using legacy plugin application:
@@ -17,15 +17,15 @@ Using legacy plugin application:
     buildscript {
         repositories {
             maven {
-                url "https://plugins.gradle.org/m2/"
+                url 'https://plugins.gradle.org/m2/'
             }
         }
         dependencies {
-            classpath "gradle.plugin.one.chest:maven-publish-plugin:0.0.1"
+            classpath 'gradle.plugin.one.chest:maven-publish-plugin:0.0.1'
         }
     }
 
-    apply plugin: "one.chest.maven-publish-plugin"
+    apply plugin: 'one.chest.maven-publish-plugin'
 
 ## Plugin setup
 
