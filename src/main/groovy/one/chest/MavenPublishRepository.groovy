@@ -20,6 +20,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class MavenPublishRepository {
     private String username, password, url
+    boolean insecure
 
     void username(String username) {
         this.username = username
@@ -43,5 +44,13 @@ class MavenPublishRepository {
 
     String getUrl() {
         url
+    }
+
+    void insecure(boolean insecure) {
+        this.insecure = insecure
+    }
+
+    String getInsecure() {
+        insecure
     }
 }

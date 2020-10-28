@@ -50,6 +50,9 @@ class MavenPublishPlugin implements Plugin<Project> {
                             }
                         }
                         url = extractUrl(project)
+                        if (project.extensions.publish.repository.insecure) {
+                            allowInsecureProtocol = project.extensions.publish.repository.insecure as boolean
+                        }
                         mavenContent {
                             releasesOnly()
                         }
@@ -74,7 +77,7 @@ class MavenPublishPlugin implements Plugin<Project> {
     static String fetchProperty(Project project, String propertyName) {
         try {
             return project.property(propertyName)
-        } catch(MissingPropertyException ignored) {
+        } catch (MissingPropertyException ignored) {
             return null
         }
     }

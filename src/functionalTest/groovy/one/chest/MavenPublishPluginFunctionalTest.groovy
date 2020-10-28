@@ -85,6 +85,40 @@ class MavenPublishPluginFunctionalTest extends Specification {
         assertArtifact(tmpDir, "rocks.mango", "example", "0.1")
     }
 
+    def "setup insecure"() {
+        given:
+        def tmpDir = Files.createTempDir().toPath()
+
+        def projectDir = new File("build/functionalTest")
+        projectDir.mkdirs()
+        new File(projectDir, "settings.gradle").text = ""
+        new File(projectDir, "gradle.properties").text = ""
+
+        new File(projectDir, "build.gradle").text = """
+            plugins {
+                id('java')
+                id('one.chest.maven-publish-plugin')
+            }
+            
+            publish {
+                repository {
+                    url "${tmpDir}"
+                    insecure true
+                }
+                groupId "rocks.mango"
+                artifactId "example"
+                version "0.1"
+            }
+""".stripIndent()
+
+        when:
+        def result = runTask(projectDir, "publish")
+
+        then:
+        result.output.contains("BUILD SUCCESSFUL")
+        assertArtifact(tmpDir, "rocks.mango", "example", "0.1")
+    }
+
     def runTask(File projectDir, String task) {
         def runner = GradleRunner.create()
         runner.forwardOutput()
