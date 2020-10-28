@@ -32,7 +32,7 @@ pluginBundle {
     tags = ['publish', 'upload', 'maven', 'repository']
 
     plugins {
-        profilesPlugin {
+        'maven-publish-plugin' {
             id = 'one.chest.maven-publish-plugin'
             displayName = 'Simple plugin to upload java components to Maven repository'
             description = 'Simple plugin to upload java components to Maven repository'
